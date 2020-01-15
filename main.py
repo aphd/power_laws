@@ -40,28 +40,5 @@ DATA_DIR = './data/blockchain'
 if __name__ == '__main__':
     # normal_distribution(points=100)
     # log_normal_distribution()
-    # pareto_distribution(log_scale=True)
-    df = pd.read_csv('{}/{}'.format(DATA_DIR, 'monero-forum.csv'), delimiter=',')
-    df = df[df['AvgCyclomaticStrict'].notnull()]
-    x = np.array(df.AvgCyclomaticStrict.values)
-    # Empirical data
-    ecdf = ECDF(x)
-    plt.plot(ecdf.x, 1 - ecdf.y, 'bo')
-    # Pareto Distribution
-    pareto_param = stats.pareto.fit(x)  # fit the sample data
-    pdf_pareto_fitted = stats.pareto.pdf(x, pareto_param[0])  # fitted distribution
-    ecdf = ECDF(pdf_pareto_fitted)
-    plt.plot(ecdf.x, 1 - ecdf.y, 'rx')
-    # # Log Normal Distribution
-    lognormal_param = stats.lognorm.fit(x)  # fit the sample data
-    pdf_log_normal_fitted = stats.lognorm.pdf(x, lognormal_param[0],
-                                              loc=lognormal_param[1],
-                                              scale=lognormal_param[2]
-                                              )  # fitted distribution
-    ecdf = ECDF(pdf_log_normal_fitted)
-    plt.plot(ecdf.x, 1 - ecdf.y, 'gs')
-    plt.xscale('log')
-    plt.yscale('log')
-    plt.grid()
-    plt.legend(['Empirical', 'Pareto', 'LogNormal'])
-    plt.show()
+    pareto_distribution(log_scale=True)
+
